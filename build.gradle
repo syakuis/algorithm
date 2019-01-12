@@ -1,0 +1,41 @@
+apply plugin: "java"
+apply plugin: "idea"
+
+ext {
+    lombokVersion = "1.18.2"
+}
+
+group "org.syaku"
+version "1.0.0.BUILD-SNAPSHOT"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+idea {
+  module {
+    inheritOutputDirs = true
+    outputDir = compileJava.destinationDir
+    testOutputDir = compileTestJava.destinationDir
+  }
+}
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+
+dependencies {
+  testCompile "junit:junit:4.12"
+
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+compileJava.dependsOn(processResources)
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.10.2"
+}
